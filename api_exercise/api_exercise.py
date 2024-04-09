@@ -61,7 +61,10 @@ class APIService():
 
     def query_data(self):
         if len(self._params) == 0:
-            res = requests.get(self._api_url)
+            try:
+                res = requests.get(self._api_url)
+            except requests.exceptions.RequestException as e:
+                raise Exception(e)
         else:
             params_str = []
             for k, v in self.params.items():
